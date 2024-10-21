@@ -1,0 +1,54 @@
+{% include 'common/header.html' %}
+{% include 'common/nav.html' %}
+<div class="main-content">
+    <div class="container my-3">
+        <h2>Edit Course</h2>
+        <form action="/staffvModules/edit/{{ course.id }}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="code">Code:</label>
+                <input type="text" class="form-control" id="code" name="code" value="{{ course.code }}">
+            </div>
+            <div class="form-group">
+                <label for="linked_courses">Linked courses:</label>
+                <input type="text" class="form-control" id="linked_courses" name="linked_courses" value="{{ course.linked_courses }}">
+            </div>
+            <div class="form-group">
+                <label for="unlinked_relatives">Unlinked relatives:</label>
+                <input type="text" class="form-control" id="unlinked_relatives" name="unlinked_relatives" value="{{ course.unlinked_relatives }}">
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ course.name }}">
+            </div>
+            <div class="form-group">
+                <label for="est_num_students">Est. Num Students:</label>
+                <input type="number" class="form-control" id="est_num_students" name="est_num_students" value="{{ course.est_num_students }}">
+            </div>
+            <div class="form-group">
+                <label for="hours">Hours:</label>
+                <input type="number" class="form-control" id="hours" name="hours" value="{{ course.hours }}">
+            </div>
+            <div class="form-group">
+                <label for="type">Type:</label>
+                <select class="form-control" id="type" name="type">
+                    <option value="Standard classroom based" {% if course.type == "Standard classroom based" %}selected{% endif %}>Standard classroom based</option>
+                    <option value="Standard computer lab based" {% if course.type == "Standard computer lab based" %}selected{% endif %}>Standard computer lab based</option>
+                </select>
+            </div>
+            <!-- 新增的form-group -->
+            <div class="form-group">
+                <label for="HS">HS:</label>
+                <select class="form-control" id="HS" name="HS">
+                    <option value="HS1" {% if course.HS == "HS1" %}selected{% endif %}>HS1</option>
+                    <option value="HS2" {% if course.HS == "HS2" %}selected{% endif %}>HS2</option>
+                    <option value="HS3" {% if course.HS == "HS3" %}selected{% endif %}>HS3</option>
+                </select>
+            </div>
+            <!-- 新增部分结束 -->
+            <br>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="/staffvModules/" class="btn btn-primary">Return to staffvModules List</a>
+        </form>
+    </div>
+</div>

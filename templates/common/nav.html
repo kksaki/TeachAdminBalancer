@@ -1,0 +1,203 @@
+<style>
+    .sidebar {
+        height: 100%;
+        width: 200px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #262626;
+        margin: 0;
+        padding-top: 0px;
+    }
+
+    .sidebar a {
+        padding: 8px 8px 8px 16px;
+        text-decoration: none;
+        font-size: 16px;
+        color: #ffffff;
+        display: block;
+        font-family: sans-serif;
+        margin-top: 5px;
+    }
+
+
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: -5px;
+    }
+
+    .logo2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .downlog hr {
+        border: none;
+        border-top: 4px solid #000000;
+        margin-top: 0px;
+    }
+
+
+    .sidebar a:hover::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -4px;
+        width: 4px;
+        background-color: #a8dadc;
+    }
+
+    .sidebar a:hover {
+        background-color: #1a1a1a;
+        border-left: 4px solid #c56fd5;
+    }
+
+    .sidebar a.hover-style {
+        background-color: #1a1a1a;
+        border-left: 4px solid #c56fd5;
+    }
+
+    .main-content {
+        margin-left: 200px;
+        padding: 15px;
+    }
+
+    .auth-links {
+        position: absolute;
+        bottom: 30px;
+        width: 100%;
+        border-top: 1px solid #ffffff;
+        padding-top: 0px;
+        text-align: left;
+    }
+
+    .auth-links a {
+        color: #ffffff;
+        font-size: 14px;
+        font-family: sans-serif;
+        display: inline-block;
+        padding-left: 16px;
+    }
+
+    .auth-links a:hover {
+        color: #a8dadc;
+    }
+
+    .auth-links svg {
+        width: 16px;
+        height: 16px;
+        fill: #ffffff;
+        vertical-align: middle;
+    }
+</style>
+
+<div class="sidebar">
+    <div class="navbar-brand d-flex align-items-center logo" href="#">
+        <img src="https://github.com/wangleiz166/studyInAberdeen/blob/main/Log.png?raw=true" alt="Logo" class="me-2"
+            height="40">
+    </div>
+
+    <div class="navbar-brand d-flex align-items-center logo2" href="#">
+        <img src="https://github.com/wangleiz166/studyInAberdeen/blob/main/TeachAdminBalancer.png?raw=true" alt="Logo"
+            class="me-2" height="30">
+    </div>
+
+    <span class="downlog">
+        <hr>
+    </span>
+    <a href="/staffvModules">StaffvModules</a>
+    <a href="/staff">Staff</a>
+    <a href="/totalWork">Total Work</a>
+    <a href="/dashboard">Course Infomation</a>
+    <a href="/user">User Management</a>
+    <a href="/chat">Chat Room</a>
+    <a href="/setting">Setting</a>
+    <a href="/setting/guide">user manual</a>
+    <div class="auth-links">
+        <hr> &nbsp; &nbsp;
+        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+            stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        {% if request.session.username %}
+        <a href="#">{{ request.session.username }}</a><br> &nbsp; &nbsp;
+        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <a href="/user/logout">logout</a><br> &nbsp; &nbsp;
+        {% else %}
+        <a href="/user/login">Login</a><br> &nbsp; &nbsp;
+        {% endif %}
+    </div>
+
+</div>
+
+<script>
+    // 获取当前页面的 URL
+    var currentURL = window.location.href;
+
+    // 检查 URL 是否为 "/staffvModules/"
+    if (currentURL.includes("/staffvModules/")) {
+        // 获取 <a> 元素
+        var staffvModulesLink = document.querySelector('a[href="/staffvModules"]');
+
+        // 添加样式类
+        staffvModulesLink.classList.add("hover-style");
+    }
+    else if (currentURL.includes("/staff/")) {
+        // 获取 <a> 元素
+        var staffvModulesLink = document.querySelector('a[href="/staff"]');
+
+        // 添加样式类
+        staffvModulesLink.classList.add("hover-style");
+    }
+    else if (currentURL.includes("/totalWork/")) {
+        // 获取 <a> 元素
+        var staffvModulesLink = document.querySelector('a[href="/totalWork"]');
+
+        // 添加样式类
+        staffvModulesLink.classList.add("hover-style");
+    }
+    else if (currentURL.includes("/dashboard/")) {
+        // 获取 <a> 元素
+        var staffvModulesLink = document.querySelector('a[href="/dashboard"]');
+
+        // 添加样式类
+        staffvModulesLink.classList.add("hover-style");
+    }
+    else if (currentURL.includes("/user/")) {
+        // 获取 <a> 元素
+        var staffvModulesLink = document.querySelector('a[href="/user"]');
+
+        // 添加样式类
+        staffvModulesLink.classList.add("hover-style");
+    }
+    else if (currentURL.includes("/setting/")) {
+        // 获取 <a> 元素
+        var staffvModulesLink = document.querySelector('a[href="/setting"]');
+
+        // 添加样式类
+        staffvModulesLink.classList.add("hover-style");
+    }
+    else if (currentURL.includes("/chat/")) {
+        // 获取 <a> 元素
+        var staffvModulesLink = document.querySelector('a[href="/chat"]');
+
+        // 添加样式类
+        staffvModulesLink.classList.add("hover-style");
+    }
+    else if (currentURL.includes("/setting/guide")) {
+    // 获取 <a> 元素
+    var staffvModulesLink = document.querySelector('a[href="/setting/guide"]');
+
+    // 添加样式类
+    staffvModulesLink.classList.add("hover-style");
+    }
+
+</script>

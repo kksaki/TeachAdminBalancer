@@ -1,0 +1,21 @@
+{
+  "name": "saki",
+  "main": "index.js",
+  "homepage": "https://github.com/kksaki/Pizzas",
+  "authors": [
+    "saki <kksakikk@outlook.com>"
+  ],
+  "description": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "socket.io-client": "^4.7.5"
+  }
+}

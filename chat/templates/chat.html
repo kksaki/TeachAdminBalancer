@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Room</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    /* 为chatArea设置滚动区域 */
+    .chatArea {
+      position: relative;
+      max-height: calc(100vh - 100px); /* 留出100px空间给输入框 */
+      overflow-y: scroll; /* 当内容过多时启用垂直滚动 */
+    }
+
+    /* 固定输入框在底部 */
+    .inputMessage {
+      position: fixed;
+      box-sizing: border-box;
+      padding: 10px;
+    }
+
+    /* 调整聊天页面的内边距，避免输入框重叠 */
+    .chat.page {
+      padding-bottom: 60px; /* 留出输入框的空间 */
+    }
+
+  </style>
+</head>
+<body>
+  <ul class="pages">
+    <li class="chat page">
+      <div class="sidenav" style="padding-left:50px;">
+        <div class="inbox__people">
+          <h4>Active users</h4>
+        </div>
+      </div>
+
+      <div class="chatArea">
+        <ul class="messages"></ul> <!-- 聊天消息区域 -->
+      </div>
+
+      <input class="inputMessage" id="inputMessage" name="inputMessage" placeholder="Type here..."/>
+    </li>
+
+    <li class="login page">
+      <div class="form">
+        <h3 class="title">Enter your name</h3>
+        <input class="usernameInput" id="usernameInput" name="username" type="text" maxlength="14"/>
+      </div>
+    </li>
+  </ul>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{% static 'bower_components/socket.io-client/dist/socket.io.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

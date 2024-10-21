@@ -1,0 +1,209 @@
+{% include 'common/header.html' %}
+{% csrf_token %}
+<style>
+    .container.my-3 {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .table {
+        width: 100%;
+    }
+    
+    .table thead th {
+        text-align: center;
+        font-weight: bold;
+    }
+    
+    .table tbody td {
+        text-align: center;
+        position: relative;
+        cursor: pointer;
+    }
+    
+    .table tbody td.editing {
+        background-color: #d3d3d3;
+    }
+    
+    .table tbody td .edit-input {
+        display: none;
+        width: 100%;
+    }
+    
+    .table tbody td.editing .edit-input {
+        display: block;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        padding: 0;
+    }
+    
+    .table tbody td.editing::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: #000;
+        animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+        50% {
+            opacity: 0;
+        }
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    // Move the definition to the top of our script
+    var editedRows = {};
+
+    function editCell(element) {
+        const cells = $('.table tbody td');
+        cells.removeClass('editing');
+
+        $(element).addClass('editing');
+        const rowIndex = element.parentNode.rowIndex;
+        const columnIndex = element.cellIndex;
+
+        const cellValue = $(element).text();
+        $(element).html(`<input type="text" id="input-${rowIndex}-${columnIndex}" class="form-control edit-input" value="${cellValue}">`);
+        const inputElement = $(element).find('input');
+        inputElement.focus();
+
+        inputElement.on('blur', function() {
+            updateCell(this, rowIndex, columnIndex);
+        });
+    }
+
+    function updateCell(element, rowIndex, columnIndex) {
+        const cellValue = $(element).val();
+        $(element).parent().removeClass('editing').text(cellValue);
+
+        if (!editedRows[rowIndex]) {
+            editedRows[rowIndex] = {};
+        }
+
+        editedRows[rowIndex][columnIndex] = cellValue;
+    }
+
+    function saveRows() {
+        if (Object.keys(editedRows).length === 0) {
+            alert('No rows have been edited');
+            return;
+        }
+
+        // Create an empty array to store all rows data
+        let allRowsData = [];
+
+        for (let rowIndex in editedRows) {
+            let rowCells = $('table tbody tr').eq(rowIndex - 1).find('td');
+            let rowData = [];
+            rowCells.each(function() {
+                // Use trim() to remove leading and trailing spaces and replace() to remove \n
+                let cellText = $(this).text().trim().replace(/\n/g, '');
+                rowData.push(cellText);
+            });
+
+            // Add row data to allRowsData array
+            allRowsData.push(rowData);
+        }
+
+        // Print the allRowsData array
+        console.log(`All rows data: ${JSON.stringify(allRowsData)}`);
+        let csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+        // Send the JSON data to the specified URL
+        $.ajax({
+            url: 'edit/course',
+            type: 'POST',
+            data: JSON.stringify(allRowsData),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            },
+            success: function(result) {
+                // Handle the response here
+                alert('Successful update');
+            },
+            error: function(request, status, error) {
+                // Handle the error here
+                console.log(`Error: ${error}`);
+            }
+        });
+    }
+
+</script>
+
+<div class="main-content">
+    <div class="container my-3">
+        <div class="alert alert-warning mt-3" role="alert">
+            Click me to view the normal screen version <a href="/staffvModules/">here</a>
+            <span  style="margin-left: 30px;">Double click on the grid to edit</span>
+            <button class="btn btn-success" style="margin-left: 10px;" onclick="saveRows()">Save</button>
+        </div>
+        <div class="tab-content" id="myTabsContent">
+            <div class="tab-pane fade show active" id="courses" role="tabpanel" aria-labelledby="coursesTab">              
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>HS</th>
+                                <th>Type</th>
+                                <th>Linked courses</th>
+                                <th>Unlinked relatives</th>
+                                <th>Name</th>
+                                <th>Num staff allocated</th>
+                                <th>Est. Num Students</th>
+                                <th>Hours</th>
+                                {% for staff in staff_list %}
+                                <th>{{ staff }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for course in list %}
+                            <tr>
+                                <td style="display: none;">{{ course.id }}</td>
+                                <td ondblclick="editCell(this)">{{ course.code }}</td>
+                                <td ondblclick="editCell(this)">{{ course.hs }}</td>
+                                <td ondblclick="editCell(this)">{{ course.type }}</td>
+                                <td ondblclick="editCell(this)">{{ course.linked_courses }}</td>
+                                <td ondblclick="editCell(this)">{{ course.unlinked_relatives }}</td>
+                                <td ondblclick="editCell(this)">{{ course.name }}</td>
+                                <td ondblclick="editCell(this)">{{ course.num_staff_allocated }}</td>
+                                <td ondblclick="editCell(this)">{{ course.est_num_students }}</td>
+                                <td ondblclick="editCell(this)">{{ course.hours }}</td>
+                                {% for share in course.share %}
+                                    <td>
+                                    {% if share.0 %}
+                                        {{ share.0 }}
+                                    {% endif %}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projectsTab">
+                
+            </div>
+            <div class="tab-pane fade" id="adminRoles" role="tabpanel" aria-labelledby="adminRolesTab">
+                  
+            </div>
+            <div class="tab-pane fade" id="schoolRoles" role="tabpanel" aria-labelledby="schoolRolesTab">
+                
+            </div>
+            <div class="tab-pane fade" id="uniRoles" role="tabpanel" aria-labelledby="uniRolesTab">
+                
+            </div>
+        </div>
+    </div>
+</div>

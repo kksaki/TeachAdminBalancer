@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <style>
+        .card {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            color: #333;
+        }
+        .card-header {
+            background-color: #000;
+            color: #fff;
+        }
+        .card-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <h3 class="card-header text-center">Total</h3>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 col-lg-2 mb-4 card-item">
+                        <h5 class="card-title">Name</h5>
+                        <p class="card-text">{{staff_name}}</p>
+                    </div>
+                    <div class="col-md-4 col-lg-2 mb-4 card-item">
+                        <h5 class="card-title">Total hours permitted</h5>
+                        <p class="card-text">{{staff_permitt_hours}}</p>
+                    </div>
+                    <div class="col-md-4 col-lg-2 mb-4 card-item">
+                        <h5 class="card-title">Total hours allocated</h5>
+                        <p class="card-text" id="totalHoursAllocated">{{staff_total_hours}}</p>
+                    </div>
+                    <div class="col-md-4 col-lg-2 mb-4 card-item">
+                        <h5 class="card-title">Total left</h5>
+                        <p class="card-text" id="totalHoursLeft">{{staff_total_hours_left}}</p>
+                    </div>
+                    <div class="col-md-4 col-lg-2 mb-4 card-item">
+                        <h5 class="card-title">No Projects</h5>
+                        <p class="card-text" id="noProjects">{{staff_total_no_project_hours}}</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                    <a href="/" class="btn btn-dark">Return</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

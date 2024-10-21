@@ -1,0 +1,64 @@
+{% include 'common/header.html' %}
+{% include 'common/nav.html' %}
+
+<div class="main-content">
+    <div class="container my-3">
+        <h1>{{permissionName}} Permission Management</h1>
+        <hr>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <h3>StaffvModules</h3>
+            <div class="form-check">
+                <label class="form-check-label" for="menu1_view">
+                    View
+                    <input class="form-check-input" type="checkbox" name="menu1_view" value="1" id="menu1_view" {% if permissions.menu1_view %}checked{% endif %}>
+                </label>
+            </div>
+
+            <h3>Staff</h3>
+            <div class="form-check">
+                <label class="form-check-label" for="menu2_view">
+                    View
+                    <input class="form-check-input" type="checkbox" name="menu2_view" value="1" id="menu2_view" {% if permissions.menu2_view %}checked{% endif %}>
+                </label>
+            </div>
+
+            <h3>Total Work</h3>
+            <div class="form-check">
+                <label class="form-check-label" for="menu3_view">
+                    View
+                    <input class="form-check-input" type="checkbox" name="menu3_view" value="1" id="menu3_view" {% if permissions.menu3_view %}checked{% endif %}>
+                </label>
+            </div>
+
+            <h3>Course Information</h3>
+            <div class="form-check">
+                <label class="form-check-label" for="menu4_view">
+                    View
+                    <input class="form-check-input" type="checkbox" name="menu4_view" value="1" id="menu4_view" {% if permissions.menu4_view %}checked{% endif %}>
+                </label>
+            </div>
+
+            <h3>User Management</h3>
+            <div class="form-check">
+                <label class="form-check-label" for="menu5_view">
+                    View
+                    <input class="form-check-input" type="checkbox" name="menu5_view" value="1" id="menu5_view" {% if permissions.menu5_view %}checked{% endif %}>
+                </label>
+            </div>
+
+            <h3>Setting</h3>
+            <div class="form-check">
+                <label class="form-check-label" for="menu6_view">
+                    View
+                    <input class="form-check-input" type="checkbox" name="menu6_view" value="1" id="menu6_view" {% if permissions.menu6_view %}checked{% endif %}>
+                </label>
+            </div>
+            <hr>
+
+            <button type="submit" class="btn btn-success">Save Permissions</button>
+            <a href="/setting/" class="btn btn-success">Return to Setting List</a>
+        </form>
+    </div>
+</div>
