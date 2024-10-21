@@ -100,7 +100,12 @@ Once you've activated the virtual environment and installed the dependencies, yo
 
 ```
 
+#### start socket.io server
+```bash
 
+  npm start
+
+```
 
 ### 5 Main features
 
