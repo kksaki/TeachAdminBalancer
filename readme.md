@@ -118,6 +118,7 @@ Once you've activated the virtual environment and installed the dependencies, yo
   - **Course Information**: Displays details of various courses, including categories and relevant parameters.
 
  - **User Managemen**t: Enables comprehensive user management, including search, activity history, adding, editing, deleting, and modifying user access rights.
+ - **Char Room**t: The chatroom allows users to send real-time messages, see who is online, and get notified when users join or leave. It also shows typing indicators for a more interactive experience.
 
  - **Settings**: Allows setting default permissions for back-office administrator roles.
 
